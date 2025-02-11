@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>62.0</apiVersion>
+    <decisions>
+        <name>Czy_robic_update</name>
+        <label>Czy robic update</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Copy_2_of_Update_Contacta</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CZy_account_status</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CleanStatus</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <label>CZy account status</label>
+        </rules>
+    </decisions>
     <description>Update na accountach</description>
     <environments>Default</environments>
     <interviewLabel>Account Processor {!$Flow.CurrentDateTime}</interviewLabel>
@@ -31,7 +50,7 @@
         <locationY>323</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Update_Contacta</targetReference>
+            <targetReference>Czy_robic_update</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -46,10 +65,10 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
-        <name>Update_Contacta</name>
-        <label>Update Contacta</label>
-        <locationX>176</locationX>
-        <locationY>431</locationY>
+        <name>Copy_2_of_Update_Contacta</name>
+        <label>Copy 2 of Update Contacta</label>
+        <locationX>264</locationX>
+        <locationY>539</locationY>
         <inputReference>Get_Contacts</inputReference>
     </recordUpdates>
     <start>
